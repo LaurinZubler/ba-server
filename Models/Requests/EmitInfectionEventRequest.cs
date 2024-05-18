@@ -1,4 +1,4 @@
-﻿namespace ba_server.Models.Entity;
+﻿namespace ba_server.Models.Requests;
 
 public class EmitInfectionEventRequest
 {

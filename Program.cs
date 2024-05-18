@@ -1,8 +1,9 @@
 using ba_server.Services;
+using ba_server.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IInfectionEventService, InfectionEventService>();
+builder.Services.AddSingleton<IUpsiContractService, UpsiContractService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

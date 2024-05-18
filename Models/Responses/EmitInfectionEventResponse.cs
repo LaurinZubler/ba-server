@@ -1,4 +1,4 @@
-﻿namespace ba_server.Models.Response;
+﻿namespace ba_server.Models.Responses;
 
 public class EmitInfectionEventResponse
 {

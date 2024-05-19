@@ -18,12 +18,18 @@ public class UpsiContractService : IUpsiContractService
   {
     _blockchain = blockchainOptions.Value;
   }
+
+  private string GetBlockchainUrl()
+  {
+    var key = _blockchain.UseInfuraAPIKey ? INFURA_API_KEY : "";
+    return $"{_blockchain.Url}{key}";
+  }
+
   public async Task<EmitInfectionEventResponse> EmitInfectionEventAsync(EmitInfectionEventRequest request)
   {
     var account = new Account(OPTIMISM_SEPOLIA_PRIVATE_KEY, _blockchain.ChainId);
-    var url = $"{_blockchain.Url}{INFURA_API_KEY}";
 
-    var web3 = new Web3(account, url);
+    var web3 = new Web3(account, GetBlockchainUrl());
     var contract = web3.Eth.GetContract(_blockchain.UpsiABI, _blockchain.UpsiContractAddress);
     var emitInfectionEventFunction = contract.GetFunction("emitInfectionEvent");
 

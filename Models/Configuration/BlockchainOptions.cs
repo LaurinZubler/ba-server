@@ -10,5 +10,4 @@ public class BlockchainOptions
   public string Url { get; set; } = String.Empty;
   public string UpsiContractAddress { get; set; } = String.Empty;
   public string UpsiABI { get; set; } = String.Empty;
-  public bool UseInfuraAPIKey { get; set; } = false;
 }

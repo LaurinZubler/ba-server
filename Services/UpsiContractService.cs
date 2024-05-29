@@ -1,5 +1,4 @@
-﻿
-using ba_server.Models.Configuration;
+﻿using ba_server.Models.Configuration;
 using ba_server.Models.Requests;
 using ba_server.Models.Responses;
 using ba_server.Services.Interfaces;
@@ -19,17 +18,12 @@ public class UpsiContractService : IUpsiContractService
     _blockchain = blockchainOptions.Value;
   }
 
-  private string GetBlockchainUrl()
-  {
-    var key = _blockchain.UseInfuraAPIKey ? INFURA_API_KEY : "";
-    return $"{_blockchain.Url}{key}";
-  }
-
   public async Task<EmitInfectionEventResponse> EmitInfectionEventAsync(EmitInfectionEventRequest request)
   {
+    var blockchainUrl = $"{_blockchain.Url}{INFURA_API_KEY}";
     var account = new Account(OPTIMISM_SEPOLIA_PRIVATE_KEY, _blockchain.ChainId);
 
-    var web3 = new Web3(account, GetBlockchainUrl());
+    var web3 = new Web3(account, blockchainUrl);
     var contract = web3.Eth.GetContract(_blockchain.UpsiABI, _blockchain.UpsiContractAddress);
     var emitInfectionEventFunction = contract.GetFunction("emitInfectionEvent");
 

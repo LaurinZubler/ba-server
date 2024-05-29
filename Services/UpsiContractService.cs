@@ -24,7 +24,7 @@ public class UpsiContractService(IOptions<BlockchainOptions> blockchainOptions, 
     var account = new Account(privateKey, _blockchain.ChainId);
     var web3 = new Web3(account, blockchainUrl);
     var contract = web3.Eth.GetContract(_blockchain.UpsiABI, _blockchain.UpsiContractAddress);
-    var emitInfectionEventFunction = contract.GetFunction("emitInfectionEvent");
+    var emitInfectionEventFunction = contract.GetFunction(_blockchain.EmitInfectionEventFunctionName);
 
     var transactionInput = emitInfectionEventFunction.CreateTransactionInput(
       account.Address,
@@ -42,6 +42,6 @@ public class UpsiContractService(IOptions<BlockchainOptions> blockchainOptions, 
       request.SignatureBls
     );
 
-    return new EmitInfectionEventResponse { Status = receipt.Status, TransactionHash = receipt.TransactionHash };
+    return new EmitInfectionEventResponse { Status = receipt.Status.Value, TransactionHash = receipt.TransactionHash };
   }
 }

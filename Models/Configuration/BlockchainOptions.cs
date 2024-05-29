@@ -4,8 +4,9 @@ public class BlockchainOptions
 {
   public const string Blockchain = "Blockchain";
 
-  public int ChainId { get; set; } = int.MinValue;
-  public string Url { get; set; } = string.Empty;
-  public string UpsiContractAddress { get; set; } = string.Empty;
-  public string UpsiABI { get; set; } = string.Empty;
+  public int ChainId { get; init; } = int.MinValue;
+  public string Url { get; init; } = string.Empty;
+  public string UpsiContractAddress { get; init; } = string.Empty;
+  public string UpsiABI { get; init; } = string.Empty;
+  public string EmitInfectionEventFunctionName { get; init; } = string.Empty;
 }

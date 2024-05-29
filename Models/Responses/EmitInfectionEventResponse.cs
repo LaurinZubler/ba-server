@@ -1,6 +1,9 @@
-﻿namespace ba_server.Models.Responses;
+﻿using Nethereum.Hex.HexTypes;
+
+namespace ba_server.Models.Responses;
 
 public class EmitInfectionEventResponse
 {
-  public string? Text { get; set; }
+  public string? TransactionHash { get; set; }
+  public HexBigInteger Status { get; set; }
 }

@@ -9,20 +9,19 @@ using Nethereum.Web3.Accounts;
 
 namespace ba_server.Services;
 
-public class UpsiContractService : IUpsiContractService
+public class UpsiContractService(IOptions<BlockchainOptions> blockchainOptions, IOptions<AzureOptions> azureOptions, ISecretsService secretsService)
+  : IUpsiContractService
 {
-  private readonly BlockchainOptions _blockchain;
-
-  public UpsiContractService(IOptions<BlockchainOptions> blockchainOptions)
-  {
-    _blockchain = blockchainOptions.Value;
-  }
+  private readonly BlockchainOptions _blockchain = blockchainOptions.Value;
+  private readonly AzureOptions _azureOptions = azureOptions.Value;
 
   public async Task<EmitInfectionEventResponse> EmitInfectionEventAsync(EmitInfectionEventRequest request)
   {
-    var blockchainUrl = $"{_blockchain.Url}{INFURA_API_KEY}";
-    var account = new Account(OPTIMISM_SEPOLIA_PRIVATE_KEY, _blockchain.ChainId);
+    var infuraApiKey = await secretsService.Get(_azureOptions.InfuraApiKeyName);
+    var privateKey = await secretsService.Get(_azureOptions.PrivateKeyName);
 
+    var blockchainUrl = $"{_blockchain.Url}{infuraApiKey}";
+    var account = new Account(privateKey, _blockchain.ChainId);
     var web3 = new Web3(account, blockchainUrl);
     var contract = web3.Eth.GetContract(_blockchain.UpsiABI, _blockchain.UpsiContractAddress);
     var emitInfectionEventFunction = contract.GetFunction("emitInfectionEvent");
@@ -40,10 +39,9 @@ public class UpsiContractService : IUpsiContractService
       request.Infectee,
       request.Tester,
       new DateTimeOffset(request.TestTimestampUtc).ToUnixTimeSeconds().ToString(),
-      // "2024-05-14T13:56:35.196Z",
       request.SignatureBls
-      );
+    );
 
-    return new EmitInfectionEventResponse { Text = "Status: " + receipt.Status + ", transaction" + receipt.TransactionHash};
+    return new EmitInfectionEventResponse { Status = receipt.Status, TransactionHash = receipt.TransactionHash };
   }
 }

@@ -7,8 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<BlockchainOptions>(
   builder.Configuration.GetSection(BlockchainOptions.Blockchain)
 );
+builder.Services.Configure<AzureOptions>(
+  builder.Configuration.GetSection(AzureOptions.Azure)
+);
 
 builder.Services.AddSingleton<IUpsiContractService, UpsiContractService>();
+builder.Services.AddSingleton<ISecretsService, SecretsService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

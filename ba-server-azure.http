@@ -1,0 +1,15 @@
+@ba_server_HostAddress = https://upsi-server.azurewebsites.net
+
+### Emit Infection Event
+POST {{ba_server_HostAddress}}/api/UpsiContract/InfectionEvent
+Content-Type: application/json
+
+{
+  "infection": "sti",
+  "infectee": [
+    "0x281A7A94b24aB24BFE2D4f6c4FAbFb766ca07b32"
+  ],
+  "tester": "0x281A7A94b24aB24BFE2D4f6c4FAbFb766ca07b32",
+  "testTimestampUtc": "2024-05-14T13:56:35.196Z",
+  "signatureBls": "signature"
+}

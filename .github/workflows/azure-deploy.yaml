@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  AZURE_WEBAPP_NAME: 'upsi - a decentralized STI tracing approach'
+  AZURE_WEBAPP_NAME: 'upsi-server'
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   DOTNET_VERSION: '8.0.x'
 
@@ -43,7 +43,7 @@ jobs:
           dotnet publish -c Release --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
 
       # Deploy to Azure Web apps
-      - name: 'Run Azure webapp deploy action using publish profile credentials'
+      - name: deploy
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}

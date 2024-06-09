@@ -38,8 +38,8 @@ public class UpsiContractService(IOptions<BlockchainOptions> blockchainOptions, 
       request.Infection,
       request.Infectee,
       request.Tester,
-      new DateTimeOffset(request.TestTimestampUtc).ToUnixTimeSeconds().ToString(),
-      request.SignatureBls
+      new DateTimeOffset(request.TestTime).ToUnixTimeSeconds().ToString(),
+      request.Signature
     );
 
     return new EmitInfectionEventResponse { Status = receipt.Status.Value, TransactionHash = receipt.TransactionHash };

@@ -32,13 +32,16 @@ public class UpsiContractService(IOptions<BlockchainOptions> blockchainOptions, 
       new HexBigInteger(0) // Gas Value
     );
 
+    long unixTimestamp = new DateTimeOffset(request.TestTime).ToUnixTimeSeconds();
+    uint testTime = (uint)unixTimestamp;
+
     var receipt = await emitInfectionEventFunction.SendTransactionAndWaitForReceiptAsync(
       transactionInput,
-      null,
+      null, // Cancellation Token
       request.Infection,
       request.Infectee,
       request.Tester,
-      new DateTimeOffset(request.TestTime).ToUnixTimeSeconds().ToString(),
+      testTime,
       request.Signature
     );
 

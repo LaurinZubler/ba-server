@@ -5,7 +5,7 @@ POST {{ba_server_HostAddress}}/api/UpsiContract/InfectionEvent
 Content-Type: application/json
 
 {
- "infection":"SMILING_SYNDROME",
+  "infection":"SMILING_SYNDROME",
   "infectee":["0x829471a67676a3d5c1dbbdd8dd40879d240ab235dd51c3bc9d2820197bbf97b0e0c1031206f25101482b6eabb71be74c"],
   "tester":"e48fae3c23174f2716476d59ed0c016793407c7f3291180601ba33fc45eb8528",
   "testTime":"2024-06-09T19:35:02.311767Z",

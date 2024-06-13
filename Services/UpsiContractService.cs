@@ -28,7 +28,7 @@ public class UpsiContractService(IOptions<BlockchainOptions> blockchainOptions, 
 
     var transactionInput = emitInfectionEventFunction.CreateTransactionInput(
       account.Address,
-      new HexBigInteger(50000), // Gas Limit
+      new HexBigInteger(1000000), // Gas Limit
       new HexBigInteger(0) // Gas Value
     );
 
